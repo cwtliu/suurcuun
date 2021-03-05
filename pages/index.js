@@ -1,65 +1,155 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import 'semantic-ui-css/semantic.min.css'
+import "../node_modules/video-react/dist/video-react.css"; // import css
 
-export default function Home() {
+import React, { Component } from 'react';
+import {
+  Container,
+  Divider,
+  Dropdown,
+  Grid,
+  Header,
+  Image,
+  List,
+  Menu,
+  Segment,
+} from 'semantic-ui-react'
+
+import { Player } from 'video-react';
+import ReactPlayer from 'react-player'
+
+export default class Home extends Component {
+    constructor(props, context) {
+      super(props, context);
+  }
+
+  componentDidMount() {
+      console.log(this.player)
+      //let subtitles = this.player.addTextTrack()
+  }
+  render() {
+      console.log(this.player)
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <div>
+        <Menu fixed='top' inverted>
+          <Container>
+            <Menu.Item as='a' header>
+              <Image size='mini' src='/logo.png' style={{ marginRight: '1.5em' }} />
+              Project Name
+            </Menu.Item>
+            <Menu.Item as='a'>Home</Menu.Item>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+            <Dropdown item simple text='Dropdown'>
+              <Dropdown.Menu>
+                <Dropdown.Item>List Item</Dropdown.Item>
+                <Dropdown.Item>List Item</Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Header>Header Item</Dropdown.Header>
+                <Dropdown.Item>
+                  <i className='dropdown icon' />
+                  <span className='text'>Submenu</span>
+                  <Dropdown.Menu>
+                    <Dropdown.Item>List Item</Dropdown.Item>
+                    <Dropdown.Item>List Item</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown.Item>
+                <Dropdown.Item>List Item</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Container>
+        </Menu>
+        <Container text style={{ marginTop: '7em' }}>
+          <Header as='h1'>Semantic UI React Fixed Template</Header>
+          <p>This is a basic fixed menu template using fixed size containers.</p>
+          <p>
+            A text container is used for the main container, which is useful for single column layouts.
+          </p>
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
+          <div className='player-wrapper'>
+          <ReactPlayer
+            url={['./cpb-aacip-127-558czhn9.h264.mov']}
+            className='react-player'
+            controls
+            playing
+            width='100%'
+            height='100%'
+            config={{ file: {
+              attributes: {
+  	            crossOrigin: 'true'
+              },
+              tracks: [
+                {kind: 'subtitles', src: './elizachase.vtt', srcLang: 'en', default: true},
+              ]
+          },
+            youtube: {
+                playerVars: {
+                    cc_lang_pref: 'en',
+                    cc_load_policy: 1
+                }
+            }
+      }}
+          />
         </div>
-      </main>
+        </Container>
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
+        <Segment inverted vertical style={{ margin: '5em 0em 0em', padding: '5em 0em' }}>
+          <Container textAlign='center'>
+            <Grid divided inverted stackable>
+              <Grid.Column width={3}>
+                <Header inverted as='h4' content='Group 1' />
+                <List link inverted>
+                  <List.Item as='a'>Link One</List.Item>
+                  <List.Item as='a'>Link Two</List.Item>
+                  <List.Item as='a'>Link Three</List.Item>
+                  <List.Item as='a'>Link Four</List.Item>
+                </List>
+              </Grid.Column>
+              <Grid.Column width={3}>
+                <Header inverted as='h4' content='Group 2' />
+                <List link inverted>
+                  <List.Item as='a'>Link One</List.Item>
+                  <List.Item as='a'>Link Two</List.Item>
+                  <List.Item as='a'>Link Three</List.Item>
+                  <List.Item as='a'>Link Four</List.Item>
+                </List>
+              </Grid.Column>
+              <Grid.Column width={3}>
+                <Header inverted as='h4' content='Group 3' />
+                <List link inverted>
+                  <List.Item as='a'>Link One</List.Item>
+                  <List.Item as='a'>Link Two</List.Item>
+                  <List.Item as='a'>Link Three</List.Item>
+                  <List.Item as='a'>Link Four</List.Item>
+                </List>
+              </Grid.Column>
+              <Grid.Column width={7}>
+                <Header inverted as='h4' content='Footer Header' />
+                <p>
+                  Extra space for a call to action inside the footer that could help re-engage users.
+                </p>
+              </Grid.Column>
+            </Grid>
+
+            <Divider inverted section />
+            <Image centered size='mini' src='/logo.png' />
+            <List horizontal inverted divided link size='small'>
+              <List.Item as='a' href='#'>
+                Site Map
+              </List.Item>
+              <List.Item as='a' href='#'>
+                Contact Us
+              </List.Item>
+              <List.Item as='a' href='#'>
+                Terms and Conditions
+              </List.Item>
+              <List.Item as='a' href='#'>
+                Privacy Policy
+              </List.Item>
+            </List>
+          </Container>
+        </Segment>
+      </div>
+      )
+  }
 }
